@@ -20,15 +20,16 @@ Seu controle de caixa, do seu jeito.
   - [Ferramentas de Build](#ferramentas-de-build)
 - [Requisitos Elicitados](#requisitos-elicitados)
   - [Requisitos Funcionais (RF)](#1-requisitos-funcionais-rf)
-    - [Gerenciamento de Contas Bancárias](#11-gerenciamento-de-contas-bancárias)
-    - [Lançamento de Movimentações Financeiras](#12-lançamento-de-movimentações-financeiras)
-    - [Cadastro de Entidades](#13-cadastro-de-entidades)
-    - [Cálculo Automático de Impostos](#14-cálculo-automático-de-impostos)
-    - [Relatórios Financeiros Mensais](#15-relatórios-financeiros-mensais)
-    - [Simulação de Cenários Financeiros](#16-simulação-de-cenários-financeiros)
-    - [Cálculo do Capital de Giro Necessário](#17-cálculo-do-capital-de-giro-necessário)
-    - [Suporte a Múltiplas Contas](#18-suporte-a-múltiplas-contas)
-    - [Suporte a Plugins](#19-suporte-a-plugins)
+    - [Criação de Usuário](#11-criação-de-usuário)
+    - [Gerenciamento de Contas Bancárias](#12-gerenciamento-de-contas-bancárias)
+    - [Lançamento de Movimentações Financeiras](#13-lançamento-de-movimentações-financeiras)
+    - [Cadastro de Entidades](#14-cadastro-de-entidades)
+    - [Cálculo Automático de Impostos](#15-cálculo-automático-de-impostos)
+    - [Relatórios Financeiros Mensais](#16-relatórios-financeiros-mensais)
+    - [Simulação de Cenários Financeiros](#17-simulação-de-cenários-financeiros)
+    - [Cálculo do Capital de Giro Necessário](#18-cálculo-do-capital-de-giro-necessário)
+    - [Suporte a Múltiplas Contas](#19-suporte-a-múltiplas-contas)
+    - [Suporte a Plugins](#110-suporte-a-plugins)
   - [Requisitos Não Funcionais (RNF)](#2-requisitos-não-funcionais-rnf)
     - [Operacionalidade](#21-operacionalidade)
     - [Distribuição](#22-distribuição)
@@ -178,12 +179,19 @@ Em resumo, um sistema de gestão de fluxo de caixa com foco em simplicidade e cl
 
 ## 1. Requisitos Funcionais (RF)
 
-### 1.1 Gerenciamento de Contas Bancárias
+### 1.1 Criação de Usuário
+- Cada usuário terá um ambiente separado e suas próprias contas para gerenciar.
+- As contas de usuários não dialogam entre si.
+- Cada usuário pode fazer backup, importar e exportar os arquivos do seu perfil com suas contas para utilizar em outro dispositivo ou armazenar na nuvem.
+- O usuário terá um nome e poderá ter uma senha, se desejar.
+- O usuário pode excluir o seu proprio perfil.
+
+### 1.2 Gerenciamento de Contas Bancárias
 - Cadastrar contas bancárias.
 - Editar ou excluir contas bancárias.
 - Visualizar movimentações por conta ou de forma unificada.
 
-### 1.2 Lançamento de Movimentações Financeiras
+### 1.3 Lançamento de Movimentações Financeiras
 - Cadastrar entrada manualmente.
 - Cadastrar saída manualmente.
 - Importar extrato bancário (CSV, OFX, outros formatos).
@@ -191,15 +199,15 @@ Em resumo, um sistema de gestão de fluxo de caixa com foco em simplicidade e cl
 - Associar lançamento a uma conta bancária.
 - Associar lançamento a um cliente e a um produto/serviço (opcional).
 
-### 1.3 Cadastro de Entidades
+### 1.4 Cadastro de Entidades
 - Cadastrar clientes.
 - Cadastrar produtos/serviços com percentual de imposto vinculado.
 
-### 1.4 Cálculo Automático de Impostos
+### 1.5 Cálculo Automático de Impostos
 - Calcular o valor do imposto baseado no produto/serviço.
 - Lançar a despesa com imposto no mês correspondente.
 
-### 1.5 Relatórios Financeiros Mensais
+### 1.6 Relatórios Financeiros Mensais
 - Exibir saldo inicial.
 - Exibir total de entradas (faturamento).
 - Exibir total de saídas.
@@ -207,18 +215,18 @@ Em resumo, um sistema de gestão de fluxo de caixa com foco em simplicidade e cl
 - Exibir margem de lucro.
 - Exibir saldo final.
 
-### 1.6 Simulação de Cenários Financeiros
+### 1.7 Simulação de Cenários Financeiros
 - Alterar parâmetros como faturamento, custos e impostos.
 - Visualizar impacto financeiro nos meses seguintes.
 
-### 1.7 Cálculo do Capital de Giro Necessário
+### 1.8 Cálculo do Capital de Giro Necessário
 - Calcular com base em despesas fixas e ciclo financeiro do negócio.
 
-### 1.8 Suporte a Múltiplas Contas
+### 1.9 Suporte a Múltiplas Contas
 - Importar e exibir movimentações separadas por conta.
 - Exibir movimentações de forma unificada.
 
-### 1.9 Suporte a Plugins
+### 1.10 Suporte a Plugins
 - Sistema modular que permita carregamento de funcionalidades extras via plugins.
 
 
