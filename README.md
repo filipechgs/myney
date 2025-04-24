@@ -184,7 +184,7 @@ Em resumo, um sistema de gestão de fluxo de caixa com foco em simplicidade e cl
 - As contas de usuários não dialogam entre si.
 - Cada usuário pode fazer backup, importar e exportar os arquivos do seu perfil com suas contas para utilizar em outro dispositivo ou armazenar na nuvem.
 - O usuário terá um nome e poderá ter uma senha, se desejar.
-- O usuário pode excluir o seu proprio perfil.
+- O usuário pode excluir o seu próprio perfil.
 
 ### 1.2 Gerenciamento de Contas Bancárias
 - Cadastrar contas bancárias.
@@ -228,7 +228,6 @@ Em resumo, um sistema de gestão de fluxo de caixa com foco em simplicidade e cl
 
 ### 1.10 Suporte a Plugins
 - Sistema modular que permita carregamento de funcionalidades extras via plugins.
-
 
 ## 2. Requisitos Não Funcionais (RNF)
 
@@ -291,7 +290,9 @@ Em resumo, um sistema de gestão de fluxo de caixa com foco em simplicidade e cl
 
 
 # Diagrama de Casos de Uso
-![Diagrama de casos de uso](./img/diagrama_casos_uso.png)
+![Diagrama de casos de uso atualizado](./img/diagrama_casos_uso.png)
+
+plantuml:
 ```plantuml
 @startuml
 left to right direction
@@ -300,26 +301,33 @@ actor "Usuário" as U
 actor "Sistema de Plugins" as P
 actor "Sistema de Importação" as I
 
+package "Gerenciamento de Usuários" {
+    usecase "Criar Usuário" as UC0
+    usecase "Gerenciar Perfil" as UC1
+    usecase "Backup e Exportação de Dados" as UC2
+}
+
 package "Gerenciamento Financeiro" {
-    usecase "Gerenciar Contas Bancárias" as UC1
-    usecase "Registrar Movimentação Financeira" as UC2
-    usecase "Gerenciar Clientes" as UC3
-    usecase "Gerenciar Produtos/Serviços" as UC4
-    usecase "Calcular Impostos" as UC5
-    usecase "Gerar Relatório Mensal" as UC6
-    usecase "Calcular Capital de Giro" as UC7
-    usecase "Simular Cenário Financeiro" as UC8
+    usecase "Gerenciar Contas Bancárias" as UC3
+    usecase "Registrar Movimentação Financeira" as UC4
+    usecase "Gerenciar Clientes" as UC5
+    usecase "Gerenciar Produtos/Serviços" as UC6
+    usecase "Calcular Impostos" as UC7
+    usecase "Gerar Relatório Mensal" as UC8
+    usecase "Calcular Capital de Giro" as UC9
+    usecase "Simular Cenário Financeiro" as UC10
 }
 
 package "Extensibilidade" {
-    usecase "Carregar Plugin" as UC9
-    usecase "Executar Plugin" as UC10
+    usecase "Carregar Plugin" as UC11
+    usecase "Executar Plugin" as UC12
 }
 
 package "Importação de Dados" {
-    usecase "Importar Extrato Bancário" as UC11
+    usecase "Importar Extrato Bancário" as UC13
 }
 
+U --> UC0
 U --> UC1
 U --> UC2
 U --> UC3
@@ -328,24 +336,28 @@ U --> UC5
 U --> UC6
 U --> UC7
 U --> UC8
-
-P --> UC9
-P --> UC10
-
 U --> UC9
 U --> UC10
 
-I --> UC11
-U --> UC11
+P --> UC11
+P --> UC12
 
-UC2 --> UC11
-UC5 --> UC2
+U --> UC11
+U --> UC12
+
+I --> UC13
+U --> UC13
+
+UC4 --> UC13
+UC7 --> UC4
 
 @enduml
 ```
 
 # Diagrama de Classes
 ![Diagrama de classes](./img/diagrama_classes.png)
+
+plantuml:
 ```plantuml
 @startuml
 skinparam classAttributeIconSize 0
