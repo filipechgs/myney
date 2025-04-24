@@ -49,8 +49,8 @@ Seu controle de caixa, do seu jeito.
     - [Classe: Plugin](#38-classe-plugin)
 - [Diagrama de Casos de Uso](#diagrama-de-casos-de-uso)
 - [Diagrama de Classes](#diagrama-de-classes)
-- [MVP](#mvp)
 - [Próximos passos](#próximos-passos)
+- [Estrutura de Diretórios](#estrutura-de-diretórios)
 
 # Apresentação do produto
 
@@ -290,7 +290,7 @@ Em resumo, um sistema de gestão de fluxo de caixa com foco em simplicidade e cl
 
 
 # Diagrama de Casos de Uso
-![Diagrama de casos de uso atualizado](./img/diagrama_casos_uso.png)
+![Diagrama de casos de uso atualizado](./docs/diagrams/diagrama_casos_uso.png)
 
 plantuml:
 ```plantuml
@@ -355,7 +355,7 @@ UC7 --> UC4
 ```
 
 # Diagrama de Classes
-![Diagrama de classes](./img/diagrama_classes.png)
+![Diagrama de classes](./docs/diagrams/diagrama_classes.png)
 
 plantuml:
 ```plantuml
@@ -447,16 +447,46 @@ Plugin ..> ContaBancaria : pode interagir com
 
 @enduml
 ```
-## MVP
-
-1. Criar versão de console para testar a lógica do distema
-2. Criar design da "interface final" 
-3. Criar versão com a "interface final"
 
 ## Próximos passos
 
-1. Criar a estrutura inicial do projeto em C# com Avalonia
-2. Fazer um primeiro módulo: cadastro de contas + lançamentos manuais
-3. Criar o esqueleto do sistema de plugins
-4. Montar estrutura de dados (LiteDB ou SQLite)
-5. Configurar o projeto para gerar .exe instalável
+1. Criar versão de console para testar a lógica do distema
+2. Criar a estrutura inicial do projeto em C# com Avalonia
+3. Fazer um primeiro módulo: cadastro de contas + lançamentos manuais
+4. Criar o esqueleto do sistema de plugins
+5. Montar estrutura de dados (LiteDB ou SQLite)
+6. Configurar o projeto para gerar .exe instalável
+
+# Estrutura de Diretórios
+
+Abaixo está a estrutura de diretórios do projeto Myney:
+
+```
+myney/
+├── LICENSE.md
+├── README.md
+├── build/                      # Scripts e configurações de build
+├── docs/                       # Documentação do projeto
+│   ├── diagrams/               # Diagramas (casos de uso, classes, etc.)
+│   └── guides/                 # Guias e tutoriais
+├── src/                        # Código-fonte principal
+│   ├── Myney.Core/             # Lógica de negócios e classes principais
+│   │   ├── Models/             # Classes de modelo (ContaBancaria, Movimentacao, etc.)
+│   │   ├── Plugins/            # Sistema de plugins
+│   │   ├── Services/           # Serviços (cálculo de impostos, relatórios, etc.)
+│   │   └── Utils/              # Utilitários e helpers
+│   ├── Myney.Data/             # Camada de acesso a dados
+│   │   ├── Migrations/         # Scripts de migração do banco de dados
+│   │   └── Repositories/       # Repositórios para acesso ao banco de dados
+│   └── Myney.UI/               # Interface do usuário (Avalonia UI)
+│       ├── Views/              # Telas e componentes visuais
+│       ├── ViewModels/         # Lógica de apresentação (MVVM)
+│       └── Resources/          # Recursos como estilos, templates, etc.
+├── tests/                      # Testes automatizados
+│   ├── Myney.Core.Tests/       # Testes para a lógica de negócios
+│   ├── Myney.UI.Tests/         # Testes para a interface do usuário
+│   └── Myney.Data.Tests/       # Testes para a camada de dados
+├── tools/                      # Ferramentas auxiliares e scripts
+```
+
+Essa estrutura foi projetada para facilitar a organização, manutenção e escalabilidade do projeto.
