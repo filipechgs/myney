@@ -145,35 +145,49 @@ Em resumo, um sistema de gestão de fluxo de caixa com foco em simplicidade e cl
 - Cadastro de categorias e impostos simples.
 
 ### Empacotamento para SO 64bits e ARM
- - Windows
- - Linux
- - IOS
+
+O projeto utiliza Electron Builder para gerar instaladores para diferentes sistemas operacionais:
+
+- **Windows**: Instalador .exe (64-bit)
+- **macOS**: Instalador .dmg (Intel 64-bit e Apple Silicon)
+- **Linux**: AppImage, .deb, e .rpm (64-bit e ARM)
+
+A distribuição é automatizada através de scripts npm:
+```bash
+# Gerar build para todas as plataformas
+npm run build:all
+
+# Gerar build específica
+npm run build:win    # Windows
+npm run build:mac    # macOS
+npm run build:linux  # Linux
+```
 
 ## Tecnologias Escolhidas
 
 ### Linguagem de Programação
-- **C# (.NET 8)**: Escolhida por sua robustez, documentação ampla, suporte multiplataforma e ausência de custos relacionados ao uso de tecnologias de código aberto.
+- **TypeScript**: Oferece tipagem estática, orientação a objetos moderna, e todas as vantagens do JavaScript moderno
+- **Node.js**: Runtime JavaScript de alta performance para o backend
 
 ### Interface de Usuário (UI)
-- **Avalonia UI**:
-  - Multiplataforma (Windows, Linux, macOS).
-  - Estilo moderno e open source.
-  - Alternativa ao WPF/WinForms, sem dependência exclusiva do Windows.
-  - Permite empacotamento fácil como executável (.exe).
+- **Electron**: Framework para criar aplicações desktop multiplataforma
+- **HTML/CSS**: Para estruturação e estilização da interface
+- **Web Components**: Componentes web nativos e reutilizáveis usando Custom Elements e Shadow DOM
+- **Lit**: Biblioteca leve para facilitar a criação de Web Components
 
 ### Banco de Dados
-- **LiteDB** (ou **SQLite**):
-  - Banco de dados local, sem necessidade de servidor.
-  - Leve e adequado para aplicações desktop.
+- **SQLite**: Banco de dados relacional leve e sem necessidade de servidor, perfeito para aplicações desktop
+- **TypeORM**: ORM (Object-Relational Mapping) para TypeScript que facilita a interação com o banco de dados
 
 ### Sistema de Plugins
-- Implementação utilizando:
-  - **Reflection + MEF (Managed Extensibility Framework)**.
-  - Ou sistema de diretórios com `Assembly.LoadFrom(...)`.
+- Sistema de plugins baseado em TypeScript utilizando padrões de design para extensibilidade
+- Suporte a carregamento dinâmico de módulos
 
 ### Ferramentas de Build
-- **Visual Studio Community**: IDE gratuita e poderosa para desenvolvimento em C#.
-- **MSIX** ou empacotador do Avalonia: Para gerar instaladores executáveis (.exe) de forma simples e eficiente.
+- **Node Package Manager (npm)**: Gerenciamento de dependências
+- **Webpack**: Bundling e otimização de assets
+- **Electron Builder**: Empacotamento e distribuição da aplicação
+- **ESLint/Prettier**: Formatação e linting de código
 
 # Requisitos Elicitados
 
@@ -459,34 +473,76 @@ Plugin ..> ContaBancaria : pode interagir com
 
 # Estrutura de Diretórios
 
-Abaixo está a estrutura de diretórios do projeto Myney:
-
 ```
 myney/
-├── LICENSE.md
-├── README.md
-├── build/                      # Scripts e configurações de build
-├── docs/                       # Documentação do projeto
-│   ├── diagrams/               # Diagramas (casos de uso, classes, etc.)
-│   └── guides/                 # Guias e tutoriais
-├── src/                        # Código-fonte principal
-│   ├── Myney.Core/             # Lógica de negócios e classes principais
-│   │   ├── Models/             # Classes de modelo (ContaBancaria, Movimentacao, etc.)
-│   │   ├── Plugins/            # Sistema de plugins
-│   │   ├── Services/           # Serviços (cálculo de impostos, relatórios, etc.)
-│   │   └── Utils/              # Utilitários e helpers
-│   ├── Myney.Data/             # Camada de acesso a dados
-│   │   ├── Migrations/         # Scripts de migração do banco de dados
-│   │   └── Repositories/       # Repositórios para acesso ao banco de dados
-│   └── Myney.UI/               # Interface do usuário (Avalonia UI)
-│       ├── Views/              # Telas e componentes visuais
-│       ├── ViewModels/         # Lógica de apresentação (MVVM)
-│       └── Resources/          # Recursos como estilos, templates, etc.
-├── tests/                      # Testes automatizados
-│   ├── Myney.Core.Tests/       # Testes para a lógica de negócios
-│   ├── Myney.UI.Tests/         # Testes para a interface do usuário
-│   └── Myney.Data.Tests/       # Testes para a camada de dados
-├── tools/                      # Ferramentas auxiliares e scripts
+├── src/                      # Código fonte da aplicação
+│   ├── main/                 # Processo principal do Electron
+│   │   └── main.ts           # Ponto de entrada do processo principal
+│   ├── renderer/             # Processo renderer do Electron (UI)
+│   │   ├── components/       # Web Components customizados
+│   │   ├── pages/            # Páginas da aplicação
+│   │   └── index.ts          # Ponto de entrada do renderer
+│   ├── shared/               # Código compartilhado entre main e renderer
+│   │   ├── types/            # Definições de tipos TypeScript
+│   │   ├── constants/        # Constantes compartilhadas
+│   │   └── utils/            # Utilitários compartilhados
+│   └── database/             # Configuração e modelos do banco de dados
+│       ├── entities/         # Entidades TypeORM
+│       ├── migrations/       # Migrações do banco de dados
+│       └── repositories/     # Repositórios de acesso aos dados
+├── public/                   # Arquivos estáticos
+├── dist/                     # Código compilado
+├── tests/                    # Testes automatizados
+├── docs/                     # Documentação
+│   └── diagrams/             # Diagramas do projeto
+├── plugins/                  # Sistema de plugins
+├── package.json              # Dependências e scripts
+├── tsconfig.json             # Configuração do TypeScript
+├── webpack.config.js         # Configuração do Webpack
+├── .eslintrc.js              # Configuração do ESLint
+├── .prettierrc               # Configuração do Prettier
+└── README.md                 # Este arquivo
 ```
 
-Essa estrutura foi projetada para facilitar a organização, manutenção e escalabilidade do projeto.
+# Instalação e Desenvolvimento
+
+## Pré-requisitos
+
+- Node.js 18.x ou superior
+- npm 8.x ou superior
+- Git
+
+## Configuração do Ambiente de Desenvolvimento
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/seu-usuario/myney.git
+cd myney
+```
+
+2. Instale as dependências:
+```bash
+npm install
+```
+
+3. Execute em modo de desenvolvimento:
+```bash
+npm run dev
+```
+
+## Scripts Disponíveis
+
+- `npm run dev`: Inicia a aplicação em modo de desenvolvimento
+- `npm run build`: Compila o projeto
+- `npm run test`: Executa os testes
+- `npm run lint`: Executa verificação de código
+- `npm run format`: Formata o código usando Prettier
+- `npm start`: Inicia a aplicação compilada localmente
+
+## Contribuindo
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
